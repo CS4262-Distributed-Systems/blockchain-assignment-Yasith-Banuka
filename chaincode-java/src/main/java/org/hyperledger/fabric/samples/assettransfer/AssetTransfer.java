@@ -208,7 +208,7 @@ public final class AssetTransfer implements ContractInterface {
         return asset.getOwner();
     }
 
-        /**
+    /**
      * Duplicates an asset on the ledger and assigns it to a new owner, while keeping the original asset with the original owner.
      *
      * @param ctx the transaction context
@@ -221,12 +221,12 @@ public final class AssetTransfer implements ContractInterface {
 
         Asset asset = ReadAsset(ctx, assetID);
 
-        //new asset id will be the original asset id followed by '-copy'. If a copy already exists, then a number is added to the end (for example: 'asset-copy2')
-        String newAssetID = asset.getAssetID() + "-copy";
-        int copyNumber = 0;
+        //new asset id will be the original asset id followed by '_copy'. If a copy already exists, then a number is added to the end (for example: 'asset_copy2')
+        String newAssetID = asset.getAssetID() + "_copy";
+        int copyNumber = 1;
 
         while (AssetExists(ctx, newAssetID)) {
-            newAssetID = asset.getAssetID() + "-copy" + copyNumber++;
+            newAssetID = asset.getAssetID() + "_copy" + copyNumber++;
         }
 
         return CreateAsset(ctx, newAssetID, asset.getColor(), asset.getSize(), newOwner, asset.getAppraisedValue());
